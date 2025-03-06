@@ -4,45 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Form</title>
-    <!-- Include Tailwind CSS via CDN -->
+    <!-- Include Tailwind app.css -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Include Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold mb-6 text-center">Contact Us</h2>
+<body class="bg-background flex items-center justify-center min-h-screen">
+    <div class="bg-secondary p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center text-text">Contact Us</h2>
 
         <!-- Display success message if exists -->
         @if(Session::has('message'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            <div class="bg-accent text-white px-4 py-3 rounded mb-4">
                 {{ Session::get('message') }}
             </div>
         @endif
 
         <!-- Form with Alpine.js Validation -->
-        <form
-            action="{{ route('contact.send') }}"
-            method="POST"
-            x-data="{
-                name: '',
-                email: '',
-                message: '',
-                errors: { name: false, email: false, message: false }
-            }"
+        <form 
+            action="{{ route('contact.send') }}" 
+            method="POST" 
+            x-data="{ 
+                name: '', 
+                email: '', 
+                message: '', 
+                errors: { name: false, email: false, message: false } 
+            }" 
             @submit.prevent="validateForm"
         >
             @csrf
 
             <!-- Name Field -->
             <div class="mb-4">
-                <label for="name" class="block text-gray-700 font-medium mb-2">Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    x-model="name"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <label for="name" class="block text-text font-medium mb-2">Name:</label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    x-model="name" 
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" 
                     :class="{ 'border-red-500': errors.name }"
                 >
                 <p x-show="errors.name" class="text-red-500 text-sm mt-1">Please enter your name.</p>
@@ -50,13 +52,13 @@
 
             <!-- Email Field -->
             <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    x-model="email"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <label for="email" class="block text-text font-medium mb-2">Email:</label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    x-model="email" 
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" 
                     :class="{ 'border-red-500': errors.email }"
                 >
                 <p x-show="errors.email" class="text-red-500 text-sm mt-1">Please enter a valid email address.</p>
@@ -64,22 +66,22 @@
 
             <!-- Message Field -->
             <div class="mb-6">
-                <label for="message" class="block text-gray-700 font-medium mb-2">Message:</label>
-                <textarea
-                    name="message"
+                <label for="message" class="block text-text font-medium mb-2">Message:</label>
+                <textarea 
+                    name="message" 
                     id="message"
-                    rows="4"
-                    x-model="message"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows="4" 
+                    x-model="message" 
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" 
                     :class="{ 'border-red-500': errors.message }"
                 ></textarea>
                 <p x-show="errors.message" class="text-red-500 text-sm mt-1">Please enter your message.</p>
             </div>
 
             <!-- Submit Button -->
-            <button
-                type="submit"
-                class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <button 
+                type="submit" 
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary"
             >
                 Send Message
             </button>
